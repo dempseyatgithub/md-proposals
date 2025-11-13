@@ -14,69 +14,12 @@ jobs:
       - name: Checkout md-proposals
         uses: actions/checkout@v4
 
-      - name: Get changed files (GitHub API, NUL-separated)
-        id: list
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const core1 = require('@actions/core');
-            const fs = require('fs');
-            const pr = context.payload.pull_request;
-            if (!pr) {
-              core1.setFailed('This event does not appear to be a pull_request event.');
-              return;
-            }  
-
-            const files = await github.paginate(
-              github.rest.pulls.listFiles,
-              {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number,
-              per_page: 100
-              }
-            );
-  
-            const names = files.map(f => f.filename);
-            // write NUL-separated file for safe CLI consumption
-            fs.writeFileSync('changed_files.nul', names.join('\0'), 'binary');
-            // also write a human-readable newline file and print to log
-            fs.writeFileSync('changed_files.txt', names.join('\n'), 'utf8');
-  
-            if (names.length === 0) {
-              console.log('No changed files found.');
-            } else {
-              console.log(`${names.length} changed file(s):`);
-              names.forEach(n => console.log(n));
-            }
-  
-            // export NUL-separated list as base64 to preserve all bytes in outputs
-            core1.setOutput('files_b64', Buffer.from(names.join('\0'), 'binary').toString('base64'));
-            core1.setOutput('count', String(names.length));
-
-      - name: Use changed files in bash and pass as args to a CLI tool
-        env:
-          FILES_B64: ${{ steps.list.outputs.files_b64 }}
-        run: |
-          # decode base64 back to NUL-separated file
-          echo "$FILES_B64" | base64 --decode > changed_files.nul || true
-
-          # read NUL-separated names into a bash array (safe for spaces/newlines)
-          mapfile -d '' -t files < changed_files.nul
-
-          echo "Files count: ${#files[@]}"
-          printf '----- Changed files -----\n'
-          for f in "${files[@]}"; do
-            printf '%s\n' "$f"
+      - id: files
+        uses: hanseltimeindustries/get-changed-files@v1
+      - run: |
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
           done
-          printf '-------------------------\n'
-
-      # Example: pass files as arguments to a CLI that accepts multiple file args
-      # Replace `mytool` with your command; quoting the array preserves each filename
-      # mytool "${files[@]}"
-
-      # Alternative: If your tool accepts stdin with NUL-delimited filenames, use:
-      # xargs -0 -a changed_files.nul -- mytool
 
       - name: Checkout dempseyatgithub/md-extractor (main)
         uses: actions/checkout@v4
