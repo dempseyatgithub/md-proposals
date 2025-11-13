@@ -19,7 +19,7 @@ jobs:
       - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (validation-reports)
         uses: actions/checkout@v4
         with:
-          repository: dempseyatgithub/validation-reports
+          repository: dempseyatgithub/swift-evolution-metadata-extractor
           ref: validation-reports
           path: seme
 
@@ -28,7 +28,7 @@ jobs:
 
       - name: Build swift-evolution-metadata-extractor (release)
         run: swift build -c release
-        working-directory: swift-evolution-metadata-extractor
+        working-directory: seme
 
       - name: Validate proposals
         run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor --base-path ${{ github.workspace }} ${{ steps.files.outputs.added_modified }}
