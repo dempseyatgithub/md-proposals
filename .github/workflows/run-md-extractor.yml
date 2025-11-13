@@ -36,4 +36,4 @@ jobs:
         working-directory: md-extractor
 
       - name: Run md-extractor against proposals
-        run: ${{ github.workspace }}/md-extractor/.build/release/md-extractor "${{ github.workspace }}/proposals"
+        run: ${{ github.workspace }}/md-extractor/.build/release/md-extractor ${{ steps.files.outputs.all }}
