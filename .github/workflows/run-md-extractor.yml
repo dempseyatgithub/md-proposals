@@ -16,10 +16,6 @@ jobs:
 
       - id: files
         uses: hanseltimeindustries/get-changed-files@v1
-      - run: |
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
-          done
 
       - name: Checkout dempseyatgithub/md-extractor (main)
         uses: actions/checkout@v4
@@ -36,4 +32,4 @@ jobs:
         working-directory: md-extractor
 
       - name: Run md-extractor against proposals
-        run: ${{ github.workspace }}/md-extractor/.build/release/md-extractor ${{ steps.files.outputs.all }}
+        run: ${{ github.workspace }}/md-extractor/.build/release/md-extractor -base-path ${{ github.workspace }} ${{ steps.files.outputs.all }}
