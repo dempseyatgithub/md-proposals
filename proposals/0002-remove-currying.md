@@ -9,7 +9,7 @@
 
 Curried function declaration syntax `func foo(x: Int)(y: Int)` is of limited
 usefulness and creates a lot of language and implementation complexity. We
-should remove it. TEST ADD
+should remove it. TEST ADD MORE
 
 ## Motivation
 
