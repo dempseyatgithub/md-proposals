@@ -18,41 +18,41 @@ jobs:
         id: list
         uses: actions/github-script@v6
         with:
-        script: |
-          const core = require('@actions/core');
-          const fs = require('fs');
-          const pr = context.payload.pull_request;
-          if (!pr) {
-            core.setFailed('This event does not appear to be a pull_request event.');
-            return;
-          }  
+          script: |
+            const core = require('@actions/core');
+            const fs = require('fs');
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.setFailed('This event does not appear to be a pull_request event.');
+              return;
+            }  
 
-          const files = await github.paginate(
-            github.rest.pulls.listFiles,
-            {
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: pr.number,
-            per_page: 100
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100
+              }
+            );
+  
+            const names = files.map(f => f.filename);
+            // write NUL-separated file for safe CLI consumption
+            fs.writeFileSync('changed_files.nul', names.join('\0'), 'binary');
+            // also write a human-readable newline file and print to log
+            fs.writeFileSync('changed_files.txt', names.join('\n'), 'utf8');
+  
+            if (names.length === 0) {
+              console.log('No changed files found.');
+            } else {
+              console.log(`${names.length} changed file(s):`);
+              names.forEach(n => console.log(n));
             }
-          );
-
-          const names = files.map(f => f.filename);
-          // write NUL-separated file for safe CLI consumption
-          fs.writeFileSync('changed_files.nul', names.join('\0'), 'binary');
-          // also write a human-readable newline file and print to log
-          fs.writeFileSync('changed_files.txt', names.join('\n'), 'utf8');
-
-          if (names.length === 0) {
-            console.log('No changed files found.');
-          } else {
-            console.log(`${names.length} changed file(s):`);
-            names.forEach(n => console.log(n));
-          }
-
-          // export NUL-separated list as base64 to preserve all bytes in outputs
-          core.setOutput('files_b64', Buffer.from(names.join('\0'), 'binary').toString('base64'));
-          core.setOutput('count', String(names.length));
+  
+            // export NUL-separated list as base64 to preserve all bytes in outputs
+            core.setOutput('files_b64', Buffer.from(names.join('\0'), 'binary').toString('base64'));
+            core.setOutput('count', String(names.length));
 
       - name: Use changed files in bash and pass as args to a CLI tool
         env:
