@@ -22,7 +22,7 @@ jobs:
           echo "changed=$CHANGED_FILES" >> $GITHUB_OUTPUT
 
       - name: Print changed files
-        run: echo "Changed files: ${{ steps.changes.outputs.changed }}"
+        run: echo "Changed files ${{ steps.changes.outputs.changed }}"
 
       - name: Checkout dempseyatgithub/md-extractor (main)
         uses: actions/checkout@v4
