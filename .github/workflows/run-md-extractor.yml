@@ -19,11 +19,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const core = require('@actions/core');
+            const core1 = require('@actions/core');
             const fs = require('fs');
             const pr = context.payload.pull_request;
             if (!pr) {
-              core.setFailed('This event does not appear to be a pull_request event.');
+              core1.setFailed('This event does not appear to be a pull_request event.');
               return;
             }  
 
@@ -51,8 +51,8 @@ jobs:
             }
   
             // export NUL-separated list as base64 to preserve all bytes in outputs
-            core.setOutput('files_b64', Buffer.from(names.join('\0'), 'binary').toString('base64'));
-            core.setOutput('count', String(names.length));
+            core1.setOutput('files_b64', Buffer.from(names.join('\0'), 'binary').toString('base64'));
+            core1.setOutput('count', String(names.length));
 
       - name: Use changed files in bash and pass as args to a CLI tool
         env:
