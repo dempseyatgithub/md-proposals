@@ -22,12 +22,9 @@ jobs:
         id: paths
         run: |
             files=(${{ steps.files.outputs.added_modified }})
-            fullpaths=()
-            for file in "${files[@]}"
-            do
+            for file in "${files[@]}"; do
                 fullpaths+=("${{ github.workspace }}/$file")
             done
-            echo "${fullpaths[@]}"
             echo "fullpaths=${fullpaths[@]}" >> $GITHUB_OUTPUT
 
       - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (validation-reports)
@@ -43,9 +40,6 @@ jobs:
       - name: Build swift-evolution-metadata-extractor (release)
         run: swift build -c release
         working-directory: seme
-
-      - name: Test full path action output
-        run: echo ${{ steps.paths.outputs.fullpaths }}
 
       - name: Validate proposals
         run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate ${{ steps.paths.outputs.fullpaths }}
