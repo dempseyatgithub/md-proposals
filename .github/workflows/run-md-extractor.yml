@@ -28,9 +28,10 @@ jobs:
                 fullpaths+=("${{ github.workspace }}/$file")
             done
             echo "${fullpaths[@]}"
-            echo "fullpaths=$${fullpaths[@]}" >> $GITHUB_OUTPUT
+            echo "fullpaths=${fullpaths[@]}" >> $GITHUB_OUTPUT
 
       - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (validation-reports)
+        if: false
         uses: actions/checkout@v4
         with:
           repository: dempseyatgithub/swift-evolution-metadata-extractor
@@ -41,6 +42,7 @@ jobs:
         run: swift --version
 
       - name: Build swift-evolution-metadata-extractor (release)
+        if: false
         run: swift build -c release
         working-directory: seme
 
