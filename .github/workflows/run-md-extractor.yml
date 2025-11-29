@@ -18,6 +18,17 @@ jobs:
         with:
           filter: 'proposals/**/*'
 
+      - name: Create list of full paths
+        id: paths
+        run: |
+            filepaths=()
+            for filepath in ${{ steps.files.outputs.added_modified }}
+            do
+                filepaths+=("${{ github.workspace }}/$filepath")
+                echo $filepath
+            done
+            echo "filepaths=$filepaths" >> $GITHUB_OUTPUT
+
       - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (validation-reports)
         uses: actions/checkout@v4
         with:
@@ -31,6 +42,9 @@ jobs:
       - name: Build swift-evolution-metadata-extractor (release)
         run: swift build -c release
         working-directory: seme
+
+      - name: Test full path action output
+        run: echo ${{ steps.paths.outputs.filepaths }}
 
       - name: Validate proposals
         run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --base-path ${{ github.workspace }} ${{ steps.files.outputs.added_modified }}
