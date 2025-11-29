@@ -23,7 +23,7 @@ jobs:
         run: |
             paths=(${{ steps.files.outputs.added_modified }})
             filepaths=()
-            for filepath in paths
+            for filepath in "${paths[@]}"
             do
                 filepaths+=("${{ github.workspace }}/$filepath")
                 echo $filepaths
