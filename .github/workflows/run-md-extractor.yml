@@ -21,8 +21,9 @@ jobs:
       - name: Create list of full paths
         id: paths
         run: |
+            paths=(${{ steps.files.outputs.added_modified }})
             filepaths=()
-            for filepath in ${{ steps.files.outputs.added_modified }}
+            for filepath in $paths
             do
                 filepaths+=("${{ github.workspace }}/$filepath")
                 echo $filepaths
