@@ -35,8 +35,8 @@ jobs:
           path: seme
 
       - name: Show Swift version
-        run: swift --version
-
+        run: swift --version >> $GITHUB_STEP_SUMMARY
+        
       - name: Build swift-evolution-metadata-extractor (release)
         run: swift build -c release
         working-directory: seme
