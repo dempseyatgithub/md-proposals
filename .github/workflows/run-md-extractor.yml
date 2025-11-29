@@ -21,14 +21,14 @@ jobs:
       - name: Create list of full paths
         id: paths
         run: |
-            paths=(${{ steps.files.outputs.added_modified }})
-            filepaths=()
-            for filepath in "${paths[@]}"
+            files=(${{ steps.files.outputs.added_modified }})
+            fullpaths=()
+            for file in "${files[@]}"
             do
                 filepaths+=("${{ github.workspace }}/$filepath")
             done
-            echo $filepaths
-            echo "filepaths=$filepaths" >> $GITHUB_OUTPUT
+            echo "${fullpaths[@]}"
+            echo "filepaths=$${fullpaths[@]}" >> $GITHUB_OUTPUT
 
       - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (validation-reports)
         uses: actions/checkout@v4
