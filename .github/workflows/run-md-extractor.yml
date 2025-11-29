@@ -42,4 +42,4 @@ jobs:
         working-directory: seme
 
       - name: Validate proposals
-        run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate ${{ steps.paths.outputs.fullpaths }}
+        run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate ${{ steps.paths.outputs.fullpaths }} >> $GITHUB_STEP_SUMMARY
