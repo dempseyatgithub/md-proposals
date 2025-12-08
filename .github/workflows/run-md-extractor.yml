@@ -18,6 +18,14 @@ jobs:
         with:
           filter: 'proposals/**/*'
 
+      - name: Test diff results
+        run: |
+          echo "Pre-built action:"
+          echo ${{ steps.files.outputs.added_modified }}
+          echo "\n"
+          echo "Using git diff:"
+          git diff github.base_ref github.head_ref --name-only
+            
       - name: Create list of full paths
         id: paths
         run: |
