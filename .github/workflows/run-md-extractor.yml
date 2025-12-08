@@ -24,7 +24,7 @@ jobs:
           echo ${{ steps.files.outputs.added_modified }}
           echo "\n"
           echo "Using git diff:"
-          git diff github.base_ref github.head_ref --name-only
+          git diff ${{ github.base_ref }} ${{ github.head_ref }} --name-only
             
       - name: Create list of full paths
         id: paths
