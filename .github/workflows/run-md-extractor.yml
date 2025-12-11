@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout md-proposals
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - id: files
         uses: hanseltimeindustries/get-changed-files@v1
