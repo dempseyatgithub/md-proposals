@@ -8,7 +8,7 @@
 
 ## Introduction
 
-The Swift compiler has the ability to "specialize" a generic function at compile time. This specialization creates a custom implementation of the function, where the generic placeholders are substituted with specific types. This can unlock optimizations of that specialized function that can be dramatically faster than the unspecialized version in some circumstances. The compiler can generate this specialized version and call it when it can see at the call site with what concrete types a function is being called, and the body of the function to specialize. Small change.
+The Swift compiler has the ability to "specialize" a generic function at compile time. This specialization creates a custom implementation of the function, where the generic placeholders are substituted with specific types. This can unlock optimizations of that specialized function that can be dramatically faster than the unspecialized version in some circumstances. The compiler can generate this specialized version and call it when it can see at the call site with what concrete types a function is being called, and the body of the function to specialize. Small change. Plus One.
 
 In some cases, though, this information is obscured from the compiler. This proposal introduces a new attribute, `@specialized`, which allows the author of a generic function to generate pre-specialized versions of that function for specific types. When the unspecialized version of the function is called with one of those types, the compiler will generate code that will re-dispatch to those prespecialized versions if available.
 
