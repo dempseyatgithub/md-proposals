@@ -22,8 +22,8 @@ jobs:
 
       - name: Test PR values
         run: |
-          echo "GitHub Event:"
-          echo ${{ github.event }}
+          echo "GitHub Event Number:"
+          echo ${{ github.event.number }}
           echo "\n"
           echo "GitHub Action:"
           echo ${{ github.action }}
