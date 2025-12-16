@@ -20,6 +20,15 @@ jobs:
         with:
           filter: 'proposals/**/*'
 
+      - name: Test PR values
+        run: |
+          echo "GitHub Event:"
+          echo ${{ github.event }}
+          echo "\n"
+          echo "GitHub Action:"
+          echo ${{ github.action }}
+          echo "\n"
+
       - name: Test diff results
         run: |
           echo "Pre-built action:"
