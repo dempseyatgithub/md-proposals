@@ -17,7 +17,7 @@ The `typealias` keyword is currently used to declare two kinds of types:
 
 These two kinds of declarations are different and should use distinct keywords.
 This would emphasize the difference between them and reduce some of the
-confusion surrounding the use of associated types.
+confusion surrounding the use of associated types. Simple change.
 
 The proposed new keyword is `associatedtype`.
 
