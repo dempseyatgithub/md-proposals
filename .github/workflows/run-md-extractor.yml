@@ -2,6 +2,7 @@ name: Validate proposals with swift-evolution-metadata-extractor
 
 on:
   pull_request:
+    types: [opened, reopened, synchronize]
     branches:
       - main
 
@@ -10,19 +11,19 @@ jobs:
     name: Validate proposals with swift-evolution-metadata-extractor
     runs-on: macos-latest
     steps:
-      - name: Checkout md-proposals
-        uses: actions/checkout@v4
 
-      - id: files
-        uses: hanseltimeindustries/get-changed-files@v1
-        with:
-          filter: 'proposals/**/*'
+      - name: Test PR Number Value  
+        run: |  
+          EVENT_NUMBER=${github.event.number}
+          PR_NUMBER=${github.event.pull_request_number}  
+          echo "Event Number: $EVENT_NUMBER"
+          echo "PR Number: $PR_NUMBER"
 
-      - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (validation-reports)
+      - name: Checkout swiftlang/swift-evolution-metadata-extractor
         uses: actions/checkout@v4
         with:
-          repository: dempseyatgithub/swift-evolution-metadata-extractor
-          ref: validation-reports
+          repository: swiftlang/swift-evolution-metadata-extractor
+          ref: main
           path: seme
 
       - name: Show Swift version
@@ -33,4 +34,4 @@ jobs:
         working-directory: seme
 
       - name: Validate proposals
-        run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --base-path ${{ github.workspace }} ${{ steps.files.outputs.added_modified }}
+        run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
