@@ -19,11 +19,11 @@ jobs:
           echo "Event Number: $EVENT_NUMBER"
           echo "PR Number: $PR_NUMBER"
 
-      - name: Checkout swiftlang/swift-evolution-metadata-extractor
+      - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
         uses: actions/checkout@v4
         with:
-          repository: swiftlang/swift-evolution-metadata-extractor
-          ref: main
+          repository: dempseyatgithub/swift-evolution-metadata-extractor
+          ref: use-test-repo
           path: seme
 
       - name: Show Swift version
