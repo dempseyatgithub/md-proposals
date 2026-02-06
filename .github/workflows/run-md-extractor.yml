@@ -14,8 +14,8 @@ jobs:
 
       - name: Test PR Number Value  
         run: |  
-          EVENT_NUMBER=${github.event.number}
-          PR_NUMBER=${github.event.pull_request_number}  
+          EVENT_NUMBER=${{ github.event.number }}
+          PR_NUMBER=${{ github.event.pull_request.number }}  
           echo "Event Number: $EVENT_NUMBER"
           echo "PR Number: $PR_NUMBER"
 
