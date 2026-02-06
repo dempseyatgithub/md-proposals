@@ -12,25 +12,17 @@ jobs:
     runs-on: macos-latest
     steps:
 
-      - name: Test PR Number Value  
-        run: |  
-          EVENT_NUMBER=${{ github.event.number }}
-          PR_NUMBER=${{ github.event.pull_request.number }}  
-          echo "Event Number: $EVENT_NUMBER"
-          echo "PR Number: $PR_NUMBER"
-
       - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: dempseyatgithub/swift-evolution-metadata-extractor
           ref: use-test-repo
           path: seme
 
-      - name: Show Swift version
-        run: swift --version
-
       - name: Build swift-evolution-metadata-extractor (release)
-        run: swift build -c release
+        run: |
+          swift --version
+          swift build -c release
         working-directory: seme
 
       - name: Validate proposals
