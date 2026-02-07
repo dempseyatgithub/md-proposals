@@ -11,6 +11,6 @@ on:
 jobs:
   validate:
     name: Validate Proposals
-    uses: dempseyatgithub/md-proposals/.github/workflows/proposal_validation.yml@main
+    uses: ./.github/workflows/proposal_validation.yml
     with:
       project: "testing"
