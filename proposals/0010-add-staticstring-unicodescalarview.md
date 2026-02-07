@@ -1,6 +1,6 @@
 # Add StaticString.UnicodeScalarView
 
-* Proposal: SE-0010
+* Proposal: [SE-0010](0010-add-staticstring-unicodescalarview.md)
 * Author: [Lily Ballard](https://github.com/lilyball)
 * Review Manager: [Doug Gregor](https://github.com/DougGregor)
 * Status: **Rejected**
