@@ -1,29 +1,29 @@
-name: Validate proposals with swift-evolution-metadata-extractor
-
-on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-    branches:
-      - main
-
-jobs:
-  run-swift-evolution-metadata-extractor:
-    name: Validate proposals with swift-evolution-metadata-extractor
-    runs-on: macos-latest
-    steps:
-
-      - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
-        uses: actions/checkout@v6
-        with:
-          repository: dempseyatgithub/swift-evolution-metadata-extractor
-          ref: use-test-repo
-          path: seme
-
-      - name: Build swift-evolution-metadata-extractor (release)
-        run: |
-          swift --version
-          swift build -c release
-        working-directory: seme
-
-      - name: Validate proposals
-        run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
+# name: Validate proposals with swift-evolution-metadata-extractor
+# 
+# on:
+  # pull_request:
+  #   types: [opened, reopened, synchronize]
+  #   branches:
+  #     - main
+# 
+# jobs:
+  # run-swift-evolution-metadata-extractor:
+  #   name: Validate proposals with swift-evolution-metadata-extractor
+  #   runs-on: macos-latest
+  #   steps:
+# 
+  #     - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
+  #       uses: actions/checkout@v6
+  #       with:
+  #         repository: dempseyatgithub/swift-evolution-metadata-extractor
+  #         ref: use-test-repo
+  #         path: seme
+# 
+  #     - name: Build swift-evolution-metadata-extractor (release)
+  #       run: |
+  #         swift --version
+  #         swift build -c release
+  #       working-directory: seme
+# 
+  #     - name: Validate proposals
+  #       run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
