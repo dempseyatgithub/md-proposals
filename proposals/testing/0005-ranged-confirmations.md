@@ -1,6 +1,6 @@
 # Range-based confirmations
 
-* Proposal: [ST-0005](0005-ranged-confirmations.md)
+* Proposal: [ST-0005](NNNN-ranged-confirmations.md)
 * Authors: [Jonathan Grynspan](https://github.com/grynspan)
 * Status: **Implemented (Swift 6.1)**
 * Bug: rdar://138499457
