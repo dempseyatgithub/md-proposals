@@ -9,23 +9,27 @@ on:
         default: swift
 
 jobs:
-  run-swift-evolution-metadata-extractor:
+  build-swift-evolution-metadata-extractor:
+  name: Build swift-evolution-metadata-extractor tool
+  runs-on: macos-latest
+  steps:
+    - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
+      uses: actions/checkout@v6
+      with:
+        repository: dempseyatgithub/swift-evolution-metadata-extractor
+        ref: use-test-repo
+        path: seme
+
+    - name: Build swift-evolution-metadata-extractor (release)
+      run: |
+        swift --version
+        swift build -c release
+      working-directory: seme
+
+  validate-proposals:
     name: Validate proposals with swift-evolution-metadata-extractor
     runs-on: macos-latest
+    needs: build-swift-evolution-metadata-extractor
     steps:
-
-      - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
-        uses: actions/checkout@v6
-        with:
-          repository: dempseyatgithub/swift-evolution-metadata-extractor
-          ref: use-test-repo
-          path: seme
-
-      - name: Build swift-evolution-metadata-extractor (release)
-        run: |
-          swift --version
-          swift build -c release
-        working-directory: seme
-
       - name: Validate proposals
         run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
