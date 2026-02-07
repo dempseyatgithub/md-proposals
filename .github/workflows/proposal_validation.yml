@@ -10,21 +10,21 @@ on:
 
 jobs:
   build-swift-evolution-metadata-extractor:
-  name: Build swift-evolution-metadata-extractor tool
-  runs-on: macos-latest
-  steps:
-    - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
-      uses: actions/checkout@v6
-      with:
-        repository: dempseyatgithub/swift-evolution-metadata-extractor
-        ref: use-test-repo
-        path: seme
-
-    - name: Build swift-evolution-metadata-extractor (release)
-      run: |
-        swift --version
-        swift build -c release
-      working-directory: seme
+    name: Build swift-evolution-metadata-extractor tool
+    runs-on: macos-latest
+    steps:
+      - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
+        uses: actions/checkout@v6
+        with:
+          repository: dempseyatgithub/swift-evolution-metadata-extractor
+          ref: use-test-repo
+          path: seme
+  
+      - name: Build swift-evolution-metadata-extractor (release)
+        run: |
+          swift --version
+          swift build -c release
+        working-directory: seme
 
   validate-proposals:
     name: Validate proposals with swift-evolution-metadata-extractor
