@@ -1,6 +1,6 @@
 # Allow trailing commas in parameter lists and tuples
 
-* Proposal: [SE-0084](0084-trailing-commas.md)
+* Proposal: [SE-0084](XXXX-trailing-commas.md)
 * Authors: [Grant Paul](https://github.com/grp), [Erica Sadun](https://github.com/erica)
 * Review Manager: [Chris Lattner](https://github.com/lattner)
 * Status: **Rejected**
