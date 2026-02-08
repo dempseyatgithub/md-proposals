@@ -9,6 +9,7 @@ on:
         default: swift
 
 jobs:
+<<<<<<< Updated upstream
   build-swift-evolution-metadata-extractor:
   name: Build swift-evolution-metadata-extractor tool
   runs-on: macos-latest
@@ -25,11 +26,45 @@ jobs:
         swift --version
         swift build -c release
       working-directory: seme
-
-  validate-proposals:
+=======
+  run-swift-evolution-metadata-extractor:
     name: Validate proposals with swift-evolution-metadata-extractor
     runs-on: macos-latest
-    needs: build-swift-evolution-metadata-extractor
     steps:
+
+      - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
+        uses: actions/checkout@v6
+        with:
+          repository: dempseyatgithub/swift-evolution-metadata-extractor
+          ref: use-test-repo
+          path: seme
+
+      - name: Create cache key
+        id: cache-key
+        run: echo "key=seme-$(git -C seme rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Restore cache
+        uses: actions/cache/restore@v5
+        id: restore-cache
+        with:
+          path: /seme/.build/release/swift-evolution-metadata-extractor
+          key: ${{ steps.cache-key.outputs.key }}
+
+      - name: Build swift-evolution-metadata-extractor (release)
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: |
+          swift --version
+          swift build -c release
+        working-directory: seme
+>>>>>>> Stashed changes
+
+      - name: Save to cache
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        id: save-to-cache
+        uses: actions/cache/save@v5
+        with:
+          path: /seme/.build/release/swift-evolution-metadata-extractor
+          key: ${{ steps.cache-key.outputs.key }}
+
       - name: Validate proposals
         run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
