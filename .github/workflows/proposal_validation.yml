@@ -9,24 +9,6 @@ on:
         default: swift
 
 jobs:
-<<<<<<< Updated upstream
-  build-swift-evolution-metadata-extractor:
-  name: Build swift-evolution-metadata-extractor tool
-  runs-on: macos-latest
-  steps:
-    - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
-      uses: actions/checkout@v6
-      with:
-        repository: dempseyatgithub/swift-evolution-metadata-extractor
-        ref: use-test-repo
-        path: seme
-
-    - name: Build swift-evolution-metadata-extractor (release)
-      run: |
-        swift --version
-        swift build -c release
-      working-directory: seme
-=======
   run-swift-evolution-metadata-extractor:
     name: Validate proposals with swift-evolution-metadata-extractor
     runs-on: macos-latest
@@ -56,7 +38,6 @@ jobs:
           swift --version
           swift build -c release
         working-directory: seme
->>>>>>> Stashed changes
 
       - name: Save to cache
         if: steps.restore-cache.outputs.cache-hit != 'true'
