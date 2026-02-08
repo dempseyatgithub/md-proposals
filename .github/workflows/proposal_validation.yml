@@ -29,7 +29,7 @@ jobs:
         uses: actions/cache/restore@v5
         id: restore-cache
         with:
-          path: /seme/.build/release/swift-evolution-metadata-extractor
+          path: ${{ github.workspace }}/swift-evolution-metadata-extractor
           key: ${{ steps.cache-key.outputs.key }}
 
       - name: Build swift-evolution-metadata-extractor (release)
@@ -37,6 +37,7 @@ jobs:
         run: |
           swift --version
           swift build -c release
+          cp ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor ${{ github.workspace }}/swift-evolution-metadata-extractor
         working-directory: seme
 
       - name: Save to cache
@@ -44,8 +45,8 @@ jobs:
         id: save-to-cache
         uses: actions/cache/save@v5
         with:
-          path: /seme/.build/release/swift-evolution-metadata-extractor
+          path: ${{ github.workspace }}/swift-evolution-metadata-extractor
           key: ${{ steps.cache-key.outputs.key }}
 
       - name: Validate proposals
-        run: ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
+        run: ${{ github.workspace }}/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
