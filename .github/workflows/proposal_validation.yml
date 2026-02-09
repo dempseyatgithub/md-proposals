@@ -12,6 +12,7 @@ jobs:
   run-swift-evolution-metadata-extractor:
     name: Validate proposals with swift-evolution-metadata-extractor
     runs-on: macos-latest
+    timeout-minutes: 10
     steps:
 
       - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
