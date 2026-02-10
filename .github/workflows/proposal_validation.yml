@@ -8,9 +8,6 @@ on:
         description: "Name of project supported by swift-evolution-metadata-extractor tool"
         default: swift
 
-permissions:
-  contents: write
-
 jobs:
   run-swift-evolution-metadata-extractor:
     name: Validate proposals with swift-evolution-metadata-extractor
@@ -43,8 +40,7 @@ jobs:
         run: |
           swift --version
           swift build -c release
-          echo "Release path: $(swift build --show-bin-path -c release)"
-          cp "$(swift build --show-bin-path -c release)/swift-evolution-metadata-extractor" ${{ github.workspace }}/swift-evolution-metadata-extractor
+          cp -L ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor ${{ github.workspace }}/swift-evolution-metadata-extractor
         working-directory: seme
 
       - name: Save to cache
