@@ -8,6 +8,9 @@ on:
         description: "Name of project supported by swift-evolution-metadata-extractor tool"
         default: swift
 
+permissions:
+  contents: write
+
 jobs:
   run-swift-evolution-metadata-extractor:
     name: Validate proposals with swift-evolution-metadata-extractor
