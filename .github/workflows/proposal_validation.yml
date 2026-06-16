@@ -39,8 +39,12 @@ jobs:
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: |
           swift --version
-          swift build -c release
-          sudo cp ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor ${{ github.workspace }}/swift-evolution-metadata-extractor
+          swift build -c release --very-verbose
+          echo "ls -la workspace:"
+          ls -al ${{ github.workspace }}
+          echo "ls -la /seme"
+          ls -al ${{ github.workspace }}/seme
+          cp ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor ${{ github.workspace }}/swift-evolution-metadata-extractor
         working-directory: seme
 
       - name: Save to cache
