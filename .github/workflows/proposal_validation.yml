@@ -40,10 +40,6 @@ jobs:
         run: |
           swift --version
           swift build -c release --very-verbose
-          echo "ls -la workspace:"
-          ls -al ${{ github.workspace }}
-          echo "ls -la /seme"
-          ls -al ${{ github.workspace }}/seme
           cp .build/release/swift-evolution-metadata-extractor $GITHUB_WORKSPACE/swift-evolution-metadata-extractor
         working-directory: seme
 
