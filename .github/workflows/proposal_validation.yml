@@ -44,7 +44,7 @@ jobs:
           ls -al ${{ github.workspace }}
           echo "ls -la /seme"
           ls -al ${{ github.workspace }}/seme
-          cp ${{ github.workspace }}/seme/.build/release/swift-evolution-metadata-extractor ${{ github.workspace }}/swift-evolution-metadata-extractor
+          cp .build/release/swift-evolution-metadata-extractor $GITHUB_WORKSPACE/swift-evolution-metadata-extractor
         working-directory: seme
 
       - name: Save to cache
@@ -56,4 +56,4 @@ jobs:
           key: ${{ steps.cache-key.outputs.key }}
 
       - name: Validate proposals
-        run: ${{ github.workspace }}/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
+        run: $GITHUB_WORKSPACE/swift-evolution-metadata-extractor validate --pull-request ${{ github.event.number }}
