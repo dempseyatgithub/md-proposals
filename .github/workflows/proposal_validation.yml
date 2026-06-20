@@ -17,11 +17,11 @@ jobs:
     timeout-minutes: 10
     steps:
 
-      - name: Checkout dempseyatgithub/swift-evolution-metadata-extractor (use-test-repo)
+      - name: Checkout swiftlang/swift-evolution-metadata-extractor (main)
         uses: actions/checkout@v6
         with:
-          repository: dempseyatgithub/swift-evolution-metadata-extractor
-          ref: use-test-repo
+          repository: swiftlang/swift-evolution-metadata-extractor
+          ref: main
           path: seme
 
       - name: Create cache key
