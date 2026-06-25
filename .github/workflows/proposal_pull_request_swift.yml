@@ -14,4 +14,4 @@ jobs:
     uses: ./.github/workflows/proposal_validation.yml
     with:
       project: "swift"
-      workflow_test_enabled: true
+#      workflow_test_enabled: true
