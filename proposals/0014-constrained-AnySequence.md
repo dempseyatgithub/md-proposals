@@ -1,9 +1,9 @@
 # Constraining `AnySequence.init`
 
-* Proposal: [SE-0014](0014-constrained-AnySequence.md)
+* Proposal: [SE-0014](NNNN-constrained-AnySequence.md)
 * Author: [Max Moiseev](https://github.com/moiseev)
 * Review Manager: [Doug Gregor](https://github.com/DougGregor)
-* Status: **Implemented (Swift 2.2)**
+* Status: **Implemented (Swift 2.4)**
 * Decision Notes: [Rationale](https://forums.swift.org/t/accepted-se-0014-constraining-anysequence-init/924)
 * Bug: [SR-474](https://bugs.swift.org/browse/SR-474)
 
