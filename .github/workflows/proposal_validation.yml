@@ -43,6 +43,7 @@ jobs:
       - name: Build swift-evolution-metadata-extractor (release)
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: |
+          echo "Resolved PR Number: "$RESOLVED_PR_NUMBER
           swift --version
           swift build -c release --very-verbose
           cp .build/release/swift-evolution-metadata-extractor $GITHUB_WORKSPACE/swift-evolution-metadata-extractor
